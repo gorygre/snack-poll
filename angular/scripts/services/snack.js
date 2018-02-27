@@ -11,7 +11,17 @@
 			// ngResource call to our static data
 			var Snack = $resrouce('data/snack.json');
 
-			return {};
+			function getSnack() {
+				return Snack.query().$promise.then(function(results) {
+					return results;
+				}, function(error) {
+					console.log(error);
+				});
+			}
+
+			return {
+				getSnack: getSnack,
+			}
 
 		}
 
