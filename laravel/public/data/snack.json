@@ -1,0 +1,22 @@
+[
+	{
+		"id":1,
+		"name":"Apple",
+		"votes":0
+	},
+	{
+		"id":2,
+		"name":"Orange",
+		"votes":0
+	},
+	{
+		"id":3,
+		"name":"Banana",
+		"votes":0
+	},
+	{
+		"id":4,
+		"name":"Pineapple",
+		"votes":0
+	}
+]
