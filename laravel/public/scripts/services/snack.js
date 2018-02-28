@@ -9,7 +9,7 @@
 		function snack($resource) {
 
 			// ngResource call to our static data
-			var Snack = $resource('data/snack.json');
+			var Snack = $resource('/api/snacks');
 
 			function getSnack() {
 				return Snack.query().$promise.then(function(results) {

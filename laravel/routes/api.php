@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 
+use App\Vote;
+use App\Http\Resources\VoteResource;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,4 +18,16 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware('rest:api')->group(function() {
+
+    Route::get('/snacks', function() {
+        return VoteResource::collection(Vote::all()->sortBy('votes'));
+    });
+
+    Route::get('/snacks/{id}', function($id) {
+        return new VoteResource(Vote::find($id));
+    });
+
 });
