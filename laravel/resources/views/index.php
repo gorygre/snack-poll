@@ -19,12 +19,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6" ng-repeat="snack in vm.votes">
-					<div class="card">
+					<div class="card {{snack.name}}">
 						<img class="card-img-top" src="images/{{snack.name}}.jpg" alt="{{snack.name}}">
 						<div class="card-body">
 							<h5 class="card-title">{{snack.name}}</h5>
-							<a href="#" class="btn btn-primary">Vote</a>
-							<span>&nbsp;{{snack.votes}}</span>
+							<a href="#" class="btn btn-primary" ng-click="vote($event)" data="{{snack.votes}}" data-id="{{snack.id}}">Vote</a>
+							<span class="votes">&nbsp;{{snack.votes}}</span>
 						</div>
 					</div>
 				</div>

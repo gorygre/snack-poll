@@ -30,4 +30,12 @@ Route::middleware('rest:api')->group(function() {
         return new VoteResource(Vote::find($id));
     });
 
+    Route::patch('/snacks/{id}', function($id, Request $request) {
+	$vote = Vote::find($id);
+	$votes = $request->votes;
+	$vote->votes = $votes;
+	$vote->save();
+	return VoteResource::collection(Vote::all()->sortBy('votes'));
+    });
+
 });

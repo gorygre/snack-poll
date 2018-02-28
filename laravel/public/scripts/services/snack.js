@@ -6,7 +6,7 @@
 		.module('poll')
 		.factory('snack', snack);
 
-		function snack($resource) {
+		function snack($resource, $http) {
 
 			// ngResource call to our static data
 			var Snack = $resource('/api/snacks');
@@ -19,8 +19,21 @@
 				});
 			}
 
+			function vote($event) {
+				var obj = angular.element($event.currentTarget);
+				var votes = obj.attr('data');
+				var id = obj.attr('data-id');
+				votes++;	
+				return $http.patch('/api/snacks/' + id, JSON.stringify({ votes: votes })).then(function(response) {
+					return response;
+				}, function(error) {
+					console.log(error);
+				});
+			}
+
 			return {
 				getSnack: getSnack,
+				vote: vote,
 			}
 
 		}
