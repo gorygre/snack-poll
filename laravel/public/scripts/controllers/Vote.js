@@ -4,26 +4,52 @@
 
 	angular
 		.module('poll')
-		.controller('Vote', ['$scope', 'snack', Vote]);
+		.controller('Vote', ['$window', '$scope', 'snack', Vote]);
 
-		function Vote($scope, snack) {
+		function Vote($window, $scope, snack) {
 
 			var vm = this;
 
 			vm.votes = [];
 
-			snack.getSnack().then(function(results) {
-				vm.votes = results.reverse();
-			}, function(error) {
-				console.log(error);
+			function display(data) {
+				// load snacks
+				vm.votes = data;
+
+				// place heart over snack that a user has voted for
+				snack.getVote().then(function(response) {
+					var vote = response.data.vote;
+					if(vote !== '') {
+						var selector = '#snack-' + vote;
+						var card = angular.element(selector);
+						var figure = card.children()[0];
+						figure.className += ' active';
+					} else {
+						console.log('Not voted');
+					}
+				}, function(error) {
+					console.log('Not logged in');
+				});
+			}
+
+			// display initial values
+			snack.getSnack().then(function(response) {
+				display(response.data.reverse());
 			});
 
+			// expose snack vote function
 			$scope.vote = function($event) {
-				snack.vote($event).then(function(response) {
-					vm.votes = response.data.reverse();
-				}, function(error) {
-					console.log(error);
-				});
+				snack.vote($window, $event, vm).then(function(response) {
+					// Authorized and has not voted
+					display(response.data.reverse());
+				}, function error(response) {
+					if(response.status === 401) {
+						// Not Authorized
+						$window.location.href = '/login';
+					} else {
+						console.log('already voted');
+					}
+				})			
 			}
 
 		}

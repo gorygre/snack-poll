@@ -1,0 +1,25 @@
+.layered-img {
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+
+.layered-img img:first-child {
+	position: relative;
+	z-index: 1
+}
+
+.layered-img img:last-child {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+.layered-img.active img:first-child {
+	z-index: 10;
+}
+
+.layered-img.active img:last-child {
+	z-index: 1;
+}

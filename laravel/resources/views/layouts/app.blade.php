@@ -6,6 +6,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @auth
+    <meta name="api-token" content="{{ Auth::user()->api_token }}">
+    @endauth
 
     <title>Snack Poll</title>
 

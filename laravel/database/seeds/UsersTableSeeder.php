@@ -15,12 +15,27 @@ class UsersTableSeeder extends Seeder
 		    'name' => 'Jane',
 		    'email' => 'jane@grmccall.com',
 		    'password' => bcrypt('monkey'),
+		    'api_token' => str_random(60),
+		    'vote' => '',
+		    'admin' => false,
 	    ]);
 
 	    DB::table('users')->insert([
 		    'name' => 'John',
 		    'email' => 'john@grmccall.com',
 		    'password' => bcrypt('monkey'),
+		    'api_token' => str_random(60),
+		    'vote' => '',
+		    'admin' => false,
+	    ]);
+
+	    DB::table('users')->insert([
+		    'name' => 'admin',
+		    'email' => 'admin@grmccall.com',
+		    'password' => bcrypt('admin'),
+		    'api_token' => str_random(60),
+		    'vote' => '',
+		    'admin' => true,
 	    ]);
     }
 }

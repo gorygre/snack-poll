@@ -8,31 +8,41 @@
 
 		function snack($resource, $http) {
 
-			// ngResource call to our static data
-			var Snack = $resource('/api/snacks');
-
 			function getSnack() {
-				return Snack.query().$promise.then(function(results) {
-					return results;
-				}, function(error) {
-					console.log(error);
+				return $http.get('/api/snacks');
+			}
+
+			function getVote() {
+				var apiToken = angular.element('meta[name="api-token"]').attr('content');
+				return $http.get('/api/user', {
+					headers: {
+						'Authorization': 'Bearer ' + apiToken
+					}
+
 				});
 			}
 
-			function vote($event) {
+			function vote($window, $event, vm) {
+				var apiToken = angular.element('meta[name="api-token"]').attr('content');
 				var obj = angular.element($event.currentTarget);
 				var votes = obj.attr('data');
 				var id = obj.attr('data-id');
 				votes++;	
-				return $http.patch('/api/snacks/' + id, JSON.stringify({ votes: votes })).then(function(response) {
-					return response;
-				}, function(error) {
-					console.log(error);
-				});
+				return $http.patch(
+					'/api/snacks/' + id,
+					JSON.stringify({ votes: votes }),
+					{
+						headers: {
+							'Authorization': 'Bearer ' + apiToken
+						}
+					}
+				);
+
 			}
 
 			return {
 				getSnack: getSnack,
+				getVote: getVote,
 				vote: vote,
 			}
 
