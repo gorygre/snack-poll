@@ -1,8 +1,5 @@
 # Snack Poll
-This is my response to a coding challenge issued by my current employee Symplicity Coropration. It leverages the PHP framework Laravel for its backend including a RESTful API. On the front end I used Angular 1.x
-
-# See for yourself!
-[snackpoll.grmccall.com](http://snackpoll.grmccall.com/)
+This is my response to a coding challenge. It leverages the PHP framework Laravel for its backend including a RESTful API. On the front end I used Angular 1.x
 
 # Rundown
 Please note for login that Jane and John have the following account information
